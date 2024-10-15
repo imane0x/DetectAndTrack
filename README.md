@@ -2,10 +2,10 @@
 
 
 ## Description
-This project implements object detection and tracking using **YOLOWorld** and **ByteTrack**. Users can upload images or videos and specify classes for detection, making it suitable for various applications in computer vision.
+This project implements object detection and tracking using **YOLOWorld** and **ByteTrack**. Users can upload videos and specify classes for detection, making it suitable for various applications in computer vision.
 
 ## Features
-- Detect and track objects in images and videos.
+- Detect and track objects in videos.
 - User-friendly Gradio interface for easy interaction.
 - Supports multiple classes for detection based on user input.
 
