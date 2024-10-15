@@ -1,7 +1,5 @@
 # DetectAndTrack
 
-
-## Description
 This project implements object detection and tracking using **YOLOWorld** and **ByteTrack**. Users can upload videos and specify classes for detection, making it suitable for various applications in computer vision.
 
 ## Features
