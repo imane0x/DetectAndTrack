@@ -3,6 +3,7 @@ import numpy as np
 import supervision as sv
 from ultralytics import YOLOWorld
 
+# Load the YOLOWorld model and tracking setup
 model = YOLOWorld("yolov8m-world")
 tracker = sv.ByteTrack()
 box_annotator = sv.BoundingBoxAnnotator()
@@ -23,10 +24,10 @@ def video_callback(frame: np.ndarray, _: int) -> np.ndarray:
     annotated_frame = box_annotator.annotate(frame.copy(), detections=detections)
     return label_annotator.annotate(annotated_frame, detections=detections, labels=labels)
 
+# Function to process video
 def process_video(video_path, classes_list):
     model.set_classes(classes_list)
 
-  
     output_path = "result_video.mp4"
     sv.process_video(
         source_path=video_path,
@@ -35,21 +36,24 @@ def process_video(video_path, classes_list):
     )
     return output_path
 
+# Gradio interface function
 def gradio_interface(input_file, classes_input):
-    classes_list = [cls.strip() for cls in classes_input.split(',')]
-    result_video = process_video(input_file, classes_list)
-    return None, result_video 
+    try:
+        # Extract the file path and class list
+        classes_list = [cls.strip() for cls in classes_input.split(',')]
+        result_video = process_video(input_file.name, classes_list)
+        return result_video
+    except Exception as e:
+        return str(e)
 
+# Gradio app definition
 gr.Interface(
     fn=gradio_interface,  # Connect the function here
     inputs=[
         gr.File(label="Upload Video"), 
         gr.Textbox(label="Classes to detect (comma-separated)", placeholder="e.g., person, car, dog")  
     ],
-    outputs=[
-    
-        gr.Video(label="Processed Video")  # For video output
-    ],
+    outputs=gr.Video(label="Processed Video"),  # For video output
     title="DetectAndTrack",
     description="Upload a video and specify object classes for detection and tracking using YOLOWorld and ByteTrack."
 ).launch()
