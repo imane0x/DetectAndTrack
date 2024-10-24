@@ -26,3 +26,6 @@ pip install -r requirements.txt
 ```bash
 python app.py 
 ```
+## Demo
+- Detecting and tracking people, handbags and backpacks.
+<p align="center"><img width="100%" src="demo.png"></p>
